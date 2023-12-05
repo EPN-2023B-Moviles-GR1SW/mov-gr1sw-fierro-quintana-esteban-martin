@@ -19,7 +19,25 @@ class ManejadorEstudiantesCalificaciones {
         calificaciones[estudiante]?.add(calificacion)
         guardarDatos()
     }
+    fun editarEstudiante(estudianteAntiguo: Estudiante, estudianteNuevo: Estudiante) {
+        if (estudiantes.contains(estudianteAntiguo)) {
+            estudiantes[estudiantes.indexOf(estudianteAntiguo)] = estudianteNuevo
+            calificaciones[estudianteNuevo] = calificaciones.remove(estudianteAntiguo) ?: mutableListOf()
+            guardarDatos()
+        } else {
+            println("Error: El estudiante a editar no existe.")
+        }
+    }
 
+    fun eliminarEstudiante(estudiante: Estudiante) {
+        if (estudiantes.contains(estudiante)) {
+            estudiantes.remove(estudiante)
+            calificaciones.remove(estudiante)
+            guardarDatos()
+        } else {
+            println("Error: El estudiante a eliminar no existe.")
+        }
+    }
     fun obtenerCalificaciones(estudiante: Estudiante): List<Calificacion> {
         return calificaciones[estudiante] ?: emptyList()
     }
@@ -77,4 +95,17 @@ fun main() {
     println("Calificaciones de ${estudiante1.nombre} ${estudiante1.apellido}: $calificacionesEstudiante1")
 
     manejador.verListaEstudiantes()
+
+    val estudianteNuevo = Estudiante("Juan", "Perez", "11B", "B", 19)
+    manejador.editarEstudiante(estudiante1, estudianteNuevo)
+
+    println("\nLista de estudiantes después de editar:")
+    manejador.verListaEstudiantes()
+
+    // Eliminar estudiante
+    manejador.eliminarEstudiante(estudianteNuevo)
+
+    println("\nLista de estudiantes después de eliminar:")
+    manejador.verListaEstudiantes()
+
 }
