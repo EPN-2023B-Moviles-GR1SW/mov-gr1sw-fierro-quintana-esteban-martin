@@ -3,4 +3,9 @@
     <string name="saludo">Buenos dias</string>
     <color name="colorBack">#FFFFF0</color>
     <color name="colorText">#FFF</color>
+    <string-array name="string_array_opciones_dialogo">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miercoles</item>
+    </string-array>
 </resources>

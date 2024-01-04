@@ -1,111 +1,128 @@
-import java.io.*
-import java.util.Date
-class ManejadorEstudiantesCalificaciones {
-    private val estudiantes: MutableList<Estudiante> = mutableListOf()
-    private val calificaciones: MutableMap<Estudiante, MutableList<Calificacion>> = mutableMapOf()
+import java.util.*
+val manejador = ManejadorEstudiantesCalificaciones()
+fun main() {
+    var opcion: Int
 
-    init {
-        cargarDatos()
-    }
+    do {
+        // Mostrar el menú
+        println("Menú:")
+        println("1. Ver Lista de Estudiantes")
+        println("2. Ingresar un nuevo estudiante")
+        println("3. Ingresar calificacion")
+        println("4. Actualizar estudiante")
+        println("5. Eliminar Estudiante")
+        println("0. Salir")
 
-    fun agregarEstudiante(estudiante: Estudiante) {
-        estudiantes.add(estudiante)
-        calificaciones[estudiante] = mutableListOf()
-        guardarDatos()
-    }
+        // Solicitar la entrada del usuario
+        print("Seleccione una opción: ")
+        opcion = readLine()?.toIntOrNull() ?: -1
 
-    fun agregarCalificacion(estudiante: Estudiante, calificacion: Calificacion) {
-        calificacion.fechaUltimoCambio = Date()
-        calificaciones[estudiante]?.add(calificacion)
-        guardarDatos()
-    }
-    fun editarEstudiante(estudianteAntiguo: Estudiante, estudianteNuevo: Estudiante) {
-        if (estudiantes.contains(estudianteAntiguo)) {
-            estudiantes[estudiantes.indexOf(estudianteAntiguo)] = estudianteNuevo
-            calificaciones[estudianteNuevo] = calificaciones.remove(estudianteAntiguo) ?: mutableListOf()
-            guardarDatos()
-        } else {
-            println("Error: El estudiante a editar no existe.")
+        // Procesar la opción seleccionada
+        when (opcion) {
+            1 -> manejador.verListaEstudiantes()
+            2 -> ingresarUnEstudiante(manejador)
+            3 -> ingresarCalificacion(manejador)
+            4 -> actualizarEstudiante()
+            5 -> eliminarEstudiante()
+            0 -> println("Saliendo del programa.")
+            else -> println("Opción no válida. Inténtalo de nuevo.")
         }
+
+        // Separador
+        println("".padEnd(30, '-'))
+
+    } while (opcion != 0)
+
+    fun gg(){
+        val manejador = ManejadorEstudiantesCalificaciones()
+
+        val estudiante1 = Estudiante("Martin", "Fierro", 9, "A", 19)
+        val calificacion1 = Calificacion(90.5, true, "Historia", 1, Date())
+
+        manejador.agregarEstudiante(estudiante1)
+
+        manejador.agregarNuevaCalificacion(manejador.obtenerIdEstudiante(estudiante1), calificacion1)
+
+        //val calificacionesEstudiante1 = manejador.obtenerCalificaciones(manejador.obtenerIdEstudiante(estudiante1))
+        //println("Calificaciones de ${estudiante1.nombre} ${estudiante1.apellido}: $calificacionesEstudiante1")
+
+        manejador.verListaEstudiantes()
+
+        val datosActualizados = Estudiante("Juan", "Perez", 9, "B", 19)
+        manejador.editarEstudiante(manejador.obtenerIdEstudiante(estudiante1), datosActualizados)
+
+        println("\nLista de estudiantes después de editar:")
+        manejador.verListaEstudiantes()
+
+        // Eliminar estudiante
+        manejador.eliminarEstudiante(manejador.obtenerIdEstudiante(estudiante1))
+
+        println("\nLista de estudiantes después de eliminar:")
+        manejador.verListaEstudiantes()
     }
 
-    fun eliminarEstudiante(estudiante: Estudiante) {
-        if (estudiantes.contains(estudiante)) {
-            estudiantes.remove(estudiante)
-            calificaciones.remove(estudiante)
-            guardarDatos()
-        } else {
-            println("Error: El estudiante a eliminar no existe.")
-        }
-    }
-    fun obtenerCalificaciones(estudiante: Estudiante): List<Calificacion> {
-        return calificaciones[estudiante] ?: emptyList()
-    }
 
 
-    fun verListaEstudiantes() {
-        println("Lista de Estudiantes con Calificaciones:")
-        for (estudiante in estudiantes) {
-            println("Estudiante: ${estudiante.nombre} ${estudiante.apellido}")
-            val calificacionesEstudiante = calificaciones[estudiante] ?: emptyList()
-            if (calificacionesEstudiante.isNotEmpty()) {
-                println("Calificaciones:")
-                for (calificacion in calificacionesEstudiante) {
-                    println("- Materia: ${calificacion.materia}, Valor: ${calificacion.valor}, Pasa: ${calificacion.pasa}, Fecha: ${calificacion.fechaUltimoCambio}")
-                }
-            } else {
-                println("Este estudiante no tiene calificaciones.")
-            }
-            println()
-        }
-    }
 
-    private fun guardarDatos() {
-        ObjectOutputStream(FileOutputStream("datos.dat")).use {
-            it.writeObject(estudiantes)
-            it.writeObject(calificaciones)
-        }
-    }
+}
+fun ingresarUnEstudiante(manejador: ManejadorEstudiantesCalificaciones){
+    println("Por favor ingrese los siguientes datos:")
+    print("Ingrese nombre: ")
+    val nombre = readLine().toString()
+    print("Ingrese apellido: ")
+    val apellido = readLine().toString()
+    print("Ingrese curso en numero: ")
+    val curso: Int? = readLine()?.toInt()
+    print("Ingrese paralelo: ")
+    val paralelo = readLine().toString()
+    print("Ingrese dia cumpleaños: ")
+    val cumple = readLine()?.toInt()
 
-    private fun cargarDatos() {
-        try {
-            ObjectInputStream(FileInputStream("datos.dat")).use {
-                val estudiantesGuardados = it.readObject() as MutableList<Estudiante>
-                val calificacionesGuardadas = it.readObject() as MutableMap<Estudiante, MutableList<Calificacion>>
+    manejador.agregarEstudiante(Estudiante(nombre,apellido,curso,paralelo,cumple))
 
-                estudiantes.addAll(estudiantesGuardados)
-                calificaciones.putAll(calificacionesGuardadas)
-            }
-        } catch (e: FileNotFoundException) {
-            // Manejar la excepción si el archivo no existe (primera ejecución)
-        }
+}
+fun ingresarCalificacion(manejador: ManejadorEstudiantesCalificaciones) {
+    println("Por favor ingrese los siguientes datos:")
+    print("Ingrese el id del estudiante: ")
+    val id = readLine()?.toInt()
+    print("Ingrese valor de la calificacion 0-10: ")
+    val valor = readLine()?.toDouble()
+    print("Ingrese la materia: ")
+    val materia = readLine().toString()
+    print("Ingrese el codigo de la materia ")
+    val paralelo = readLine()?.toInt()
+
+    if (id != null) {
+        manejador.agregarNuevaCalificacion(id, Calificacion(valor,materia,paralelo))
+
     }
 }
+fun actualizarEstudiante(){
+    println("Por favor ingrese los siguientes datos:")
+    print("Ingrese el id del estudiante a editar: ")
+    val id = readLine()?.toInt()
+    print("Ingrese nombre: ")
+    val nombre = readLine().toString()
+    print("Ingrese apellido: ")
+    val apellido = readLine().toString()
+    print("Ingrese curso en numero: ")
+    val curso: Int? = readLine()?.toInt()
+    print("Ingrese paralelo: ")
+    val paralelo = readLine().toString()
+    print("Ingrese dia cumpleaños: ")
+    val cumple = readLine()?.toInt()
 
-fun main() {
-    val manejador = ManejadorEstudiantesCalificaciones()
+    if (id != null) {
+        manejador.editarEstudiante(id,Estudiante(nombre,apellido,curso,paralelo,cumple))
+    }
 
-    val estudiante1 = Estudiante("Martin", "Fierro", "Noveno", "A", 19)
-    val calificacion1 = Calificacion(90.5, true, "Historia", "HIS101", Date())
+}
 
-    manejador.agregarEstudiante(estudiante1)
-    manejador.agregarCalificacion(estudiante1, calificacion1)
-
-    val calificacionesEstudiante1 = manejador.obtenerCalificaciones(estudiante1)
-    println("Calificaciones de ${estudiante1.nombre} ${estudiante1.apellido}: $calificacionesEstudiante1")
-
-    manejador.verListaEstudiantes()
-
-    val estudianteNuevo = Estudiante("Juan", "Perez", "11B", "B", 19)
-    manejador.editarEstudiante(estudiante1, estudianteNuevo)
-
-    println("\nLista de estudiantes después de editar:")
-    manejador.verListaEstudiantes()
-
-    // Eliminar estudiante
-    manejador.eliminarEstudiante(estudianteNuevo)
-
-    println("\nLista de estudiantes después de eliminar:")
-    manejador.verListaEstudiantes()
-
+fun eliminarEstudiante(){
+    println("Por favor ingrese los siguientes datos:")
+    print("Ingrese el id del estudiante a editar: ")
+    val id = readLine()?.toInt()
+    if (id != null) {
+        manejador.eliminarEstudiante(id)
+    }
 }
