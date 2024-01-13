@@ -33,37 +33,37 @@ fun main() {
 
     } while (opcion != 0)
 
-    fun gg(){
-        val manejador = ManejadorEstudiantesCalificaciones()
 
-        val estudiante1 = Estudiante("Martin", "Fierro", 9, "A", 19)
-        val calificacion1 = Calificacion(90.5, true, "Historia", 1, Date())
+}
+fun gg(){
+    //val manejador = ManejadorEstudiantesCalificaciones()
 
-        manejador.agregarEstudiante(estudiante1)
+    val estudiante1 = Estudiante("Martin", "Fierro", 9, "A", 19)
+    val calificacion1 = Calificacion(8.0, "Historia", 1)
+    val calificacion2 = Calificacion(9.0, "Historia", 1)
 
-        manejador.agregarNuevaCalificacion(manejador.obtenerIdEstudiante(estudiante1), calificacion1)
+    manejador.agregarEstudiante(estudiante1)
 
-        //val calificacionesEstudiante1 = manejador.obtenerCalificaciones(manejador.obtenerIdEstudiante(estudiante1))
-        //println("Calificaciones de ${estudiante1.nombre} ${estudiante1.apellido}: $calificacionesEstudiante1")
+    manejador.agregarNuevaCalificacion(manejador.obtenerIdEstudiante(estudiante1), calificacion1)
 
-        manejador.verListaEstudiantes()
+    //val calificacionesEstudiante1 = manejador.obtenerCalificaciones(manejador.obtenerIdEstudiante(estudiante1))
+    //println("Calificaciones de ${estudiante1.nombre} ${estudiante1.apellido}: $calificacionesEstudiante1")
 
-        val datosActualizados = Estudiante("Juan", "Perez", 9, "B", 19)
-        manejador.editarEstudiante(manejador.obtenerIdEstudiante(estudiante1), datosActualizados)
+    manejador.verListaEstudiantes()
 
-        println("\nLista de estudiantes después de editar:")
-        manejador.verListaEstudiantes()
+    manejador.editarCalificacion(1)
 
-        // Eliminar estudiante
-        manejador.eliminarEstudiante(manejador.obtenerIdEstudiante(estudiante1))
+    val datosActualizados = Estudiante("Juan", "Perez", 9, "B", 19)
+    manejador.editarEstudiante(manejador.obtenerIdEstudiante(estudiante1), datosActualizados)
 
-        println("\nLista de estudiantes después de eliminar:")
-        manejador.verListaEstudiantes()
-    }
+    println("\nLista de estudiantes después de editar:")
+    manejador.verListaEstudiantes()
 
+    // Eliminar estudiante
+    manejador.eliminarEstudiante(manejador.obtenerIdEstudiante(estudiante1))
 
-
-
+    println("\nLista de estudiantes después de eliminar:")
+    manejador.verListaEstudiantes()
 }
 fun ingresarUnEstudiante(manejador: ManejadorEstudiantesCalificaciones){
     println("Por favor ingrese los siguientes datos:")

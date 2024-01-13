@@ -43,16 +43,17 @@ class ManejadorEstudiantesCalificaciones {
         }
 
     }
-    /*
-    fun editarCalificacion(idEstudiante: Int, datosACambiar: Calificacion){
-        val index = listaEstudianteCalificaciones.indexOfFirst { (id, calificacion) ->
-            id == idEstudiante && calificacion == datosACambiar
-        }
 
-        if(listaEstudianteCalificaciones.contains(idEstudiante)){
-            listaEstudianteCalificaciones
+    fun editarCalificacion(idEstudiante: Int){
+        // datosACambiar: Calificacion
+        val result = listaEstudianteCalificaciones.filter { (id,cal) -> id==idEstudiante }
+        result.forEach{
+
         }
+        println("asdasdasd")
+        println(result)
     }
+    /*
     fun eliminarCalificacion(idEstudiante: Int, codigoMateria:Int){
         if(listaEstudianteCalificaciones.containsKey(idEstudiante)){
             for((key,calificaciones) in listaEstudianteCalificaciones){
