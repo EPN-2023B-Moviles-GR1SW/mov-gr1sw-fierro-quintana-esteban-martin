@@ -17,7 +17,7 @@ public class ManejadorEstudiante {
             //cargarDatos()
             agregarEstudiante("Martin", "Fierro")
             agregarEstudiante("Juan", "Perez")
-            listaEstudiantes[1]?.agregarCalificacion(8.0,"Matematicas",1)
+            listaEstudiantes[1]?.agregarCalificacion(8.0,"Matematicas")
 
         }
         fun obtenerLista(): MutableMap<Int, Estudiante> {

@@ -3,51 +3,59 @@ package com.example.examenmov
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.Toast
 import com.example.examen.models.ManejadorEstudiante
 import com.google.android.material.textfield.TextInputEditText
 
-class CrearNotaActivity : AppCompatActivity() {
+class EditNotaActivity : AppCompatActivity() {
 
     lateinit var inputValor: TextInputEditText
     lateinit var inputMateria: TextInputEditText
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_crear_nota)
-
-
-
-        val btnCrear = findViewById<Button>(R.id.btn_crear_nota)
+        setContentView(R.layout.activity_edit_nota)
+        val btnEditar = findViewById<Button>(R.id.btn_editar_nota)
         obtenerDatos()
-        btnCrear.setOnClickListener {
-            logicaCrear()
+        btnEditar.setOnClickListener {
+            logicaEditar()
         }
-
-
     }
-
     fun obtenerDatos(){
+        val id: Int = intent.extras?.getInt("id")!!
+        val index: Int = intent.extras?.getInt("index")!!
         inputValor = findViewById(R.id.input_valor)
         inputMateria = findViewById(R.id.input_materia)
-    }
-    fun logicaCrear(){
-        val id: Int = intent.extras?.getInt("id")!!
-
         val lista = ManejadorEstudiante.obtenerLista()
+        var estudiante = lista[id]
+        if (estudiante != null) {
+            inputValor.setText(estudiante!!.calificaciones[index].valor.toString())
+            inputMateria.setText(estudiante!!.calificaciones[index].materia)
+        }
+    }
+    fun logicaEditar(){
+        val id: Int = intent.extras?.getInt("id")!!
+        val index: Int = intent.extras?.getInt("index")!!
+        val lista = ManejadorEstudiante.obtenerLista()
+        var estudiante = lista[id]
+
 
         val inputNota:String = inputValor.text.toString()
         var numero: Double = 0.0
         val materia = inputMateria.text.toString()
-        var codMat: Int = 0
+
 
 
         try {
             numero= inputNota.toDoubleOrNull()!!
 
             if (numero != null) {
-                lista[id]?.agregarCalificacion(numero, materia)
-                Toast.makeText(this," Nota Creada", Toast.LENGTH_SHORT).show()
+                estudiante?.editarCalificacion(index,materia, numero)
+                Toast.makeText(this," Nota Editada", Toast.LENGTH_SHORT).show()
                 val intend = Intent(this, MainActivity::class.java)
                 startActivity(intend)
             }

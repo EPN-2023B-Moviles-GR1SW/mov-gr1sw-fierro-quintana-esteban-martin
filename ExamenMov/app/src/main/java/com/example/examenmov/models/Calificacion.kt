@@ -5,16 +5,25 @@ import java.util.Date
 class Calificacion(
     var valor: Double?,
     val pasa: Boolean,
-    val materia: String,
+    var materia: String,
     val codigoMateria: Int?,
     var fechaUltimoCambio: Date
 ) {
-    constructor(valor: Double?, materia: String, codigoMateria: Int?) : this(
+    companion object {
+        private var contadorCodigoMateria: Int = 0
+
+        fun generarCodigoMateria(): Int {
+            return contadorCodigoMateria++
+        }
+    }
+
+
+    constructor(valor: Double?, materia: String) : this(
         valor,
         valor!! >= 6,  // Determinar si pasa basado en la calificación
         materia,
-        codigoMateria,
+        generarCodigoMateria(),
         Date()
     )
-    constructor() : this(0.0,"desconocido",0,)
+    constructor() : this(0.0,"desconocido",)
 }

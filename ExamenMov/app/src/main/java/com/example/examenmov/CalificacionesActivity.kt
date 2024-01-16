@@ -14,10 +14,17 @@ import android.widget.Toast
 import androidx.appcompat.widget.LinearLayoutCompat
 import com.example.examen.models.Calificacion
 import com.example.examen.models.CustomBaseAdapter
+import com.example.examen.models.Estudiante
 import com.example.examen.models.ManejadorEstudiante
 import com.example.examenmov.models.BaseAdaptarCal
 
 class CalificacionesActivity : AppCompatActivity() {
+
+    var id: Int? = null
+    private val lista = ManejadorEstudiante.obtenerLista()
+    var calificaciones:MutableList<Calificacion>? = null
+    lateinit var est : Estudiante
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calificaciones)
@@ -29,9 +36,8 @@ class CalificacionesActivity : AppCompatActivity() {
     fun initProgram(){
         val tvResult = findViewById<TextView>(R.id.tv_est)
 
-        val id: Int? = intent.extras?.getInt("id")
-
-        val lista = ManejadorEstudiante.obtenerLista()
+        id = intent.extras?.getInt("id")
+        est = lista[id]!!
 
 
         val nombre = lista[id]?.nombre
@@ -40,7 +46,7 @@ class CalificacionesActivity : AppCompatActivity() {
         //val id: String = intent.extras?.getString("id").orEmpty()
         tvResult.text = "$nombre $apellido"
 
-        val calificaciones:MutableList<Calificacion>? = lista[id]?.obtenerCalificaciones()
+        calificaciones= lista[id]?.obtenerCalificaciones()
         Log.i("cal", calificaciones.toString())
 
         if(calificaciones?.isNotEmpty() == true){
@@ -53,7 +59,9 @@ class CalificacionesActivity : AppCompatActivity() {
                 // Obtén la vista del ícono del menú
                 val menuIcon = view.findViewById<androidx.cardview.widget.CardView>(R.id.cv_nota)
                 // Muestra el menú contextual
-                showPopupMenu(menuIcon, position)
+                if (adaptadorCal != null) {
+                    showPopupMenu(menuIcon, position, adaptadorCal)
+                }
             }
         }else{
             val tv_exep = findViewById<TextView>(R.id.tv_exep)
@@ -67,19 +75,25 @@ class CalificacionesActivity : AppCompatActivity() {
             startActivity(intend)
         }
     }
-    fun showPopupMenu(view: View, position: Int) {
+    fun showPopupMenu(view: View, position: Int, adapter:BaseAdaptarCal) {
         val popupMenu = PopupMenu(this, view)
         popupMenu.inflate(R.menu.menu_calificaciones)
 
         popupMenu.setOnMenuItemClickListener { menuItem: MenuItem ->
             when (menuItem.itemId) {
                 R.id.opc1-> {
-                    Toast.makeText(this, "Estudiante as", Toast.LENGTH_SHORT).show()
+                    val intend = Intent(this, EditNotaActivity::class.java)
+                    intend.putExtra("id", id)
+                    intend.putExtra("index", position)
+                    startActivity(intend)
+
                     true
                 }
 
                 R.id.opc2 -> {
-                    Toast.makeText(this, "Estudiante Eliminado", Toast.LENGTH_SHORT).show()
+                    calificaciones?.get(position)?.let { est.eliminarCalificacion(it.materia) }
+                    Toast.makeText(this, "Calificacion Eliminado", Toast.LENGTH_SHORT).show()
+                    adapter.notifyDataSetChanged()
                     true
                 }
 

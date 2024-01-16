@@ -31,21 +31,18 @@ class Estudiante(
     }
 
     // Método para agregar una calificación
-    fun agregarCalificacion(valor: Double, materia: String, codigoMateria:Int) {
-        val nuevaCalificacion = Calificacion(valor, materia ,codigoMateria)
+    fun agregarCalificacion(valor: Double, materia: String) {
+        val nuevaCalificacion = Calificacion(valor, materia)
         calificaciones.add(nuevaCalificacion)
         println("Calificación agregada: Materia: $materia, Nota: $valor")
     }
 
     // Método para editar una calificación por materia
-    fun editarCalificacion(materia: String, nuevaNota: Double) {
-        val calificacion = calificaciones.find { it.materia == materia }
-        if (calificacion != null) {
-            calificacion.valor = nuevaNota
-            println("Calificación editada: Materia: $materia, Nueva nota: $nuevaNota")
-        } else {
-            println("No se encontró una calificación para la materia $materia")
-        }
+    fun editarCalificacion(index: Int, materia: String, valor: Double ) {
+        val calificacion = calificaciones[index]
+        calificacion.valor = valor
+        calificacion.materia = materia
+        println("Calificación editada: Materia: $materia, Nueva nota: $valor")
     }
 
     // Método para eliminar una calificación por materia
