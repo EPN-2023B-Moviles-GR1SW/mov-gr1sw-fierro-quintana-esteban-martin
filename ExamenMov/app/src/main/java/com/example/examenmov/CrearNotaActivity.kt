@@ -16,14 +16,11 @@ class CrearNotaActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_crear_nota)
 
-
-
         val btnCrear = findViewById<Button>(R.id.btn_crear_nota)
         obtenerDatos()
         btnCrear.setOnClickListener {
             logicaCrear()
         }
-
 
     }
 
