@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".IFirestore"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:id="@+id/btn_fs_datos_prueba"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="C. DATOS"
+            android:layout_margin="15dp"/>
+        <Button
+            android:id="@+id/btn_fs_order_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ORDER BY"
+            android:layout_margin="15dp"/>
+        <Button
+            android:id="@+id/btn_fs_odoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="O. 1 DOC"
+            android:layout_margin="15dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_fs_ind_comp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IN. COMPO"
+            android:layout_margin="15dp"/>
+        <Button
+            android:id="@+id/btn_fs_crear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CREAR"
+            android:layout_margin="15dp"/>
+        <Button
+            android:id="@+id/btn_fs_eliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ELiminar"
+            android:layout_margin="15dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_fs_epaginar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="E. Paginar"
+            android:layout_margin="15dp"/>
+        <Button
+            android:id="@+id/btn_fs_paginar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PAGINAr"
+            android:layout_margin="15dp"/>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <ListView
+        android:id="@+id/lv_firestore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="20dp"/>
+
+</androidx.appcompat.widget.LinearLayoutCompat>

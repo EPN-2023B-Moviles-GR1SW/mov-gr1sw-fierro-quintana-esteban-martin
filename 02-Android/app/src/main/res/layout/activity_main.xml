@@ -81,6 +81,31 @@
         android:text="R. View"
         android:background="@color/teal_700"
         android:layout_marginTop="20dp"/>
+    <Button
+        android:id="@+id/btn_google_maps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_revcycler_view"
+        android:text="Google Maps"/>
 
+    <Button
+        android:id="@+id/btn_intent_firebase_ui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_google_maps"
+        android:text="F. AUTH"/>
+
+    <Button
+        android:id="@+id/btn_intent_firestore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_intent_firebase_ui"
+        android:text="Firestore"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

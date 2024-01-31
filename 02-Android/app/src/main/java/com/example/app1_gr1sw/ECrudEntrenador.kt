@@ -1,6 +1,5 @@
 package com.example.app1_gr1sw
 
-import EBaseDeDatos
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity

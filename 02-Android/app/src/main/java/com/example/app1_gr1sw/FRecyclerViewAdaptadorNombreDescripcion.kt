@@ -1,13 +1,11 @@
+package com.example.app1_gr1sw
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.app1_gr1sw.BEntrenador
-import com.example.app1_gr1sw.FRecyclerView
-import com.example.app1_gr1sw.R
-import org.w3c.dom.Text
 
 class FRecyclerViewAdaptadorNombreDescripcion(
     private val contexto: FRecyclerView,
@@ -39,14 +37,14 @@ class FRecyclerViewAdaptadorNombreDescripcion(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): FRecyclerViewAdaptadorNombreDescripcion.MyViewHolder {
+    ): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_vista,parent,false)
         return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(
-        holder: FRecyclerViewAdaptadorNombreDescripcion.MyViewHolder,
+        holder: MyViewHolder,
         position: Int
     ) {
         val entrenadorActual = this.lista[position]

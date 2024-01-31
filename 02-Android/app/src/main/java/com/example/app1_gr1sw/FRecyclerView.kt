@@ -1,6 +1,5 @@
 package com.example.app1_gr1sw
 
-import FRecyclerViewAdaptadorNombreDescripcion
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
