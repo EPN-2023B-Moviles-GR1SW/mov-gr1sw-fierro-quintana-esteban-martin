@@ -14,6 +14,9 @@ class Estudiante(
     constructor(nombre: String, apellido: String) :
             this(nombre, apellido, null, "", null, mutableListOf())
 
+    constructor():
+            this("", "", null, "", null, mutableListOf())
+
     fun obtenerCalificaciones(): MutableList<Calificacion> {
         return calificaciones
     }
