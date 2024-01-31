@@ -19,7 +19,7 @@ class ESqliteHelper(
                CREATE TABLE ESTUDIANTE(
                id INTEGER PRIMARY KEY AUTOINCREMENT,
                nombre VARCHAR(50),
-               descripcion VARCHAR(50)
+               apellido VARCHAR(50)
                ) 
             """.trimIndent()
         db?.execSQL(scriptSQLCrearTablaEntrenador)
@@ -55,7 +55,7 @@ class ESqliteHelper(
             // Delete from id = 1  ===> [ 1 ]
             .delete(
                 "ESTUDIANTE", // Nombre tabla
-                "id=?", // Consulta Where
+                "nombre=?", // Consulta Where
                 parametrosConsultaDelete
             )
         conexionEscritura.close()
@@ -65,13 +65,13 @@ class ESqliteHelper(
 
     fun actualizarEntrenadorFormulario(
         nombre: String,
-        descripcion: String,
+        apellido: String,
         id:Int,
     ):Boolean{
         val conexionEscritura = writableDatabase
         val valoresAActualizar = ContentValues()
         valoresAActualizar.put("nombre", nombre)
-        valoresAActualizar.put("descripcion", descripcion)
+        valoresAActualizar.put("apellido", apellido)
         // where ID = ?
         val parametrosConsultaActualizar = arrayOf( id.toString() )
         val resultadoActualizacion = conexionEscritura
