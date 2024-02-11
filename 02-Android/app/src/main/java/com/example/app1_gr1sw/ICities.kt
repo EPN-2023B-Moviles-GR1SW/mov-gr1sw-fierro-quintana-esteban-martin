@@ -1,4 +1,4 @@
-package com.example.app1_gr1sw.ui.theme
+package com.example.app1_gr1sw
 
 import com.firebase.ui.auth.data.model.CountryInfo
 
