@@ -1,4 +1,4 @@
-package com.example.deber_03
+package com.example.deber_03.models
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.deber_03.R
 
 class MsgListAdapter(private val itemList: List<MsgItemModel>) :
     RecyclerView.Adapter<MsgListAdapter.ViewHolder>() {

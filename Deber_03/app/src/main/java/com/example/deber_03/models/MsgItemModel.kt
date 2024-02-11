@@ -1,4 +1,4 @@
-package com.example.deber_03
+package com.example.deber_03.models
 
 data class MsgItemModel(
     val imageUrl: String,

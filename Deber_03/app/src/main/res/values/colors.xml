@@ -5,6 +5,7 @@
 
     <color name="backgroud">#1c1d22</color>
     <color name="text">#7f818d</color>
+    <color name="textName">#4CAF50</color>
     <color name="text_hover">#6A6A6A</color>
     <color name="button">#26262e</color>
     <color name="search">#111216</color>

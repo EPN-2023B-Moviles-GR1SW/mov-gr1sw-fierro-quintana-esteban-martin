@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".ChannelActivity"
     android:orientation="vertical"
     android:background="@color/backgroud">
 
@@ -12,14 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="15dp">
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginTop="15dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mensajes"
+            android:text="# general>"
             android:textStyle="bold"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
 
             />
@@ -38,45 +39,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Buscar amigos"
-
+                android:text="Buscar"
                 android:textColor="@color/white"/>
         </androidx.cardview.widget.CardView>
 
+
+
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-
-    <androidx.cardview.widget.CardView
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="21dp"
-        app:contentPadding="10dp"
-        android:backgroundTint="@color/search"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="15dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Buscar"
-            android:textColor="@color/text_hover"/>
-    </androidx.cardview.widget.CardView>
+        android:layout_height="1dp"
+        android:background="@color/text"
+        android:layout_marginVertical="5dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_icons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:orientation="horizontal"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="20dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_msg"
+        android:id="@+id/rv_posts"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"/>
+        android:layout_height="700dp"
+        android:layout_marginHorizontal="15dp"
+        />
+
     <Space
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -89,6 +72,7 @@
         app:menu="@menu/bot_nav"
         android:background="@color/button"
         android:layout_gravity="bottom"/>
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
