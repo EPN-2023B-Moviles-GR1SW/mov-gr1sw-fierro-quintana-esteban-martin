@@ -15,10 +15,10 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val itemList = listOf(
-            MsgItemModel("Elemento 1"),
-            MsgItemModel("Elemento 2"),
-            MsgItemModel("Elemento 3"),
-            // Agrega más elementos segú3 sea necesario
+            MsgItemModel("https://randomuser.me/api/portraits/thumb/men/10.jpg","Juan","Hola mundo"),
+            MsgItemModel("https://randomuser.me/api/portraits/thumb/women/11.jpg","Maria","Hola mundo"),
+            MsgItemModel("https://randomuser.me/api/portraits/thumb/men/12.jpg","Caza","Hola mundo"),
+
         )
 
         val adapter = MsgListAdapter(itemList)
