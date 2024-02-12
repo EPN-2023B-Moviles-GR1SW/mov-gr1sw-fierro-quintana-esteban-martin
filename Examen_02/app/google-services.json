@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "370345056709",
+    "project_id": "b2023-gr1sw-emfq",
+    "storage_bucket": "b2023-gr1sw-emfq.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370345056709:android:3babffa5f2fd3848f493ac",
+        "android_client_info": {
+          "package_name": "com.example.app1_gr1sw"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWHnhwmFS07GZQh-HUf59ZHg__H7KRiX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370345056709:android:93f8b83049483f72f493ac",
+        "android_client_info": {
+          "package_name": "com.example.examen_02"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWHnhwmFS07GZQh-HUf59ZHg__H7KRiX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:370345056709:android:b5977f38625e1bcdf493ac",
+        "android_client_info": {
+          "package_name": "com.example.examenmov"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWHnhwmFS07GZQh-HUf59ZHg__H7KRiX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
