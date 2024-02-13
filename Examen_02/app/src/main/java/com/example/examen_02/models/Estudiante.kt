@@ -3,6 +3,12 @@ package com.example.examen_02.models
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+val db = Firebase.firestore
+val collectionName = "students"
+val subcollectionName = "calificacion"
+val mainCollectionRef = db.collection(collectionName)
+val listaCalIds: MutableList<String> = mutableListOf()
+
 class Estudiante (
     var nombre: String,
     var apellido: String,
@@ -12,16 +18,11 @@ class Estudiante (
     val calificaciones: MutableList<Calificacion>
 ) {
     constructor(nombre: String, apellido: String, curso: Int?, paralelo: String, diaCumpleanos: Int?) :
-            this(nombre, apellido, curso, paralelo, diaCumpleanos, mutableListOf())
+            this(nombre, apellido, curso, paralelo, diaCumpleanos, mutableListOf());
 
     constructor(nombre: String, apellido: String) :
-            this(nombre, apellido, null, "", null, mutableListOf())
+            this(nombre, apellido, null, "", null, mutableListOf());
 
-    val db = Firebase.firestore
-    val collectionName = "students"
-    val subcollectionName = "calificacion"
-    val mainCollectionRef = db.collection(collectionName)
-    val listaCalIds: MutableList<String> = mutableListOf()
 
     fun actualizarCalificaciones(StudentID: String){
         val documentRef = mainCollectionRef.document(StudentID)

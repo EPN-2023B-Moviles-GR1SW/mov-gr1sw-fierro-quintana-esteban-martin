@@ -14,7 +14,7 @@ class EstHandlerList {
         val collectionRef = db.collection(collectionName)
 
         val listaEstudiantes: MutableMap<String, Estudiante> = mutableMapOf()
-        val listaIds: MutableList<String> = mutableListOf()
+        var listaIds: MutableList<String> = mutableListOf()
 
         init {
             actualizarLista()
@@ -22,8 +22,12 @@ class EstHandlerList {
         fun actualizarLista(){
             collectionRef.get()
                 .addOnSuccessListener { result ->
+                    listaEstudiantes.clear()
+                    listaIds.clear()
                     for (document in result) {
+                        Thread.sleep(1000)
                         val documentRef = collectionRef.document(document.id)
+                        println(document.id)
                         listaIds.add(document.id)
                         documentRef.get()
                             .addOnSuccessListener { documentSnapshot ->
@@ -56,10 +60,10 @@ class EstHandlerList {
             return listaIds.indexOf(clave)
         }
         fun obtenerIdLista(index:Int): String {
-            val nuevoIndex = listaEstudiantes.size - 1
             return listaIds[index]
         }
         fun agregarEstudiante(nombre: String, apellido: String) {
+            println("Tratando de guardar $nombre y $apellido")
             val datosAGuardar = Estudiante(
                 nombre = nombre,
                 apellido = apellido
@@ -67,11 +71,11 @@ class EstHandlerList {
             )
             collectionRef.add(datosAGuardar)
                 .addOnSuccessListener { documentReference ->
-                    // La operación de almacenamiento fue exitosa
-                    // Puedes obtener el ID del nuevo documento usando documentReference.id si es necesario
+                    println("Creado:" + documentReference.id)
+
                 }
                 .addOnFailureListener { exception ->
-                    // Maneja errores aquí
+                   println("Fallo al guardar")
                 }
 
         }

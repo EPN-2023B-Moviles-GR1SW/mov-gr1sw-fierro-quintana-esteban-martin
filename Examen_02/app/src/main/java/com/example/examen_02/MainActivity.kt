@@ -38,12 +38,10 @@ class MainActivity : AppCompatActivity() {
     fun initList() {
         EstHandlerList.actualizarLista()
         lista_estudiantes= EstHandlerList.listaEstudiantes
-        EstHandlerList.pruebasss()
-
         initListComponents()
     }
     fun initListComponents(){
-        Thread.sleep(2000);
+        //Thread.sleep(2000);
         val lvStudentList = findViewById<ListView>(R.id.lv_student_list)
         val miadapter = EstListAdapter(this, lista_estudiantes)
 
@@ -73,38 +71,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-    }
-    fun pruebas(){
-        val db = Firebase.firestore
-        val collectionName = "students"
-        val mainCollectionRef = db.collection(collectionName)
-        val documentRef = mainCollectionRef.document("V9kc2idq3E4FVpfInKRH")
-        val subCollectionRef = documentRef.collection("calificacion")
-        subCollectionRef
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                for (document in querySnapshot) {
-                    // Accede a los datos de cada documento en la subcolección
-                    val data = document.data
-                    print("123123123")
-                    println(data)
-                    val subDocRef =subCollectionRef.document(document.id)
-                    subDocRef.get()
-                        .addOnSuccessListener { documentSnapshot ->
-                            println("idcal:" + document.id)
-                            if (documentSnapshot.exists()) {
-                                val materia = documentSnapshot.getString("materia")
-                                val valor = documentSnapshot.getLong("valor") ?: 0
-                                println(materia + valor)
-                            } else {
-                                println("No existe el documento")
-                            }
-                        }
-                }
-            }
-            .addOnFailureListener { exception ->
-                println("error")
-            }
     }
 
     fun showPopupMenu(view: View, position: Int, miadapter: EstListAdapter) {
