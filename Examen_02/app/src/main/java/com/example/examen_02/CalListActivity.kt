@@ -18,29 +18,45 @@ import com.example.examen_02.models.Estudiante
 
 class CalListActivity : AppCompatActivity() {
 
-    var id: Int? = null
+    var id: String? = null
     private val lista = EstHandlerList.obtenerLista()
     var calificaciones:MutableList<Calificacion>? = null
-    lateinit var est : Estudiante
+    lateinit var estudiante : Estudiante
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cal_list)
         initProgram()
+        initBtnNewNote()
+        initBtnUpdateList()
     }
     fun initProgram(){
         val tvResult = findViewById<TextView>(R.id.tv_est)
-
-        id = intent.extras?.getInt("id")
-        est = lista[id]!!
-
-
-        val nombre = lista[id]?.nombre
-        val apellido = lista[id]?.apellido
-
-        //val id: String = intent.extras?.getString("id").orEmpty()
+        id = intent.extras?.getString("StringId")
+        estudiante = lista[id]!!
+        val nombre = estudiante.nombre
+        val apellido = estudiante.apellido
         tvResult.text = "$nombre $apellido"
 
-        calificaciones= lista[id]?.obtenerCalificaciones()
+    }
+    fun initBtnNewNote(){
+        val btnNuevaNota = findViewById<Button>(R.id.btn_nueva_cal)
+        btnNuevaNota.setOnClickListener {
+            val intend = Intent(this, AddCalFormActivity::class.java)
+            intend.putExtra("StringId", id)
+            startActivity(intend)
+        }
+    }
+    fun initBtnUpdateList(){
+        val btnUpdateList = findViewById<Button>(R.id.btn_update_cal_list)
+        btnUpdateList.setOnClickListener {
+            initList()
+        }
+    }
+
+    fun initList(){
+        estudiante.actualizarCalificaciones(id!!)
+
+        calificaciones= estudiante.obtenerCalificaciones()
         Log.i("cal", calificaciones.toString())
 
         if(calificaciones?.isNotEmpty() == true){
@@ -57,17 +73,12 @@ class CalListActivity : AppCompatActivity() {
                     showPopupMenu(menuIcon, position, adaptadorCal)
                 }
             }
+            adaptadorCal!!.notifyDataSetChanged()
         }else{
             val tv_exep = findViewById<TextView>(R.id.tv_exep)
             tv_exep.text = "No tiene calificaciones"
         }
 
-        val btnNuevaNota = findViewById<Button>(R.id.btn_nueva_cal)
-        btnNuevaNota.setOnClickListener {
-            val intend = Intent(this, AddCalFormActivity::class.java)
-            intend.putExtra("id", id)
-            startActivity(intend)
-        }
     }
 
     fun showPopupMenu(view: View, position: Int, adapter:CalListAdapter) {
@@ -78,15 +89,20 @@ class CalListActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.opc1-> {
                     val intend = Intent(this, EditCalFormActivity::class.java)
-                    intend.putExtra("id", id)
+                    intend.putExtra("EstId", id)
                     intend.putExtra("index", position)
+                    intend.putExtra("calId", estudiante.obtenerIdLista(position))
                     startActivity(intend)
 
                     true
                 }
 
                 R.id.opc2 -> {
-                    calificaciones?.get(position)?.let { est.eliminarCalificacion(it.materia) }
+                    calificaciones?.get(position)?.let {
+                        estudiante.eliminarCalificacion(
+                            id!!,
+                            estudiante.obtenerIdLista(position)
+                        ) }
                     Toast.makeText(this, "Calificacion Eliminado", Toast.LENGTH_SHORT).show()
                     adapter.notifyDataSetChanged()
                     true

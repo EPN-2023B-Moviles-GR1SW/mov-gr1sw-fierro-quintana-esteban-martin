@@ -17,12 +17,12 @@ class EditEstFormActivity : AppCompatActivity() {
     lateinit var inputParalelo: TextInputEditText
     lateinit var inputDiaCum: TextInputEditText
 
-    var id: Int = 0
+    var id: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_est_form)
 
-        id = intent.extras?.getInt("id")!!
+        id = intent.extras?.getString("StringId")!!
         ponerDatos()
 
         val btnEditar = findViewById<Button>(R.id.btn_editar)

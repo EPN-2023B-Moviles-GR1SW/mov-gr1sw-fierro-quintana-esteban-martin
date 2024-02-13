@@ -1,5 +1,8 @@
 package com.example.examen_02.models
 
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
 class Estudiante (
     var nombre: String,
     var apellido: String,
@@ -14,46 +17,109 @@ class Estudiante (
     constructor(nombre: String, apellido: String) :
             this(nombre, apellido, null, "", null, mutableListOf())
 
+    val db = Firebase.firestore
+    val collectionName = "students"
+    val subcollectionName = "calificacion"
+    val mainCollectionRef = db.collection(collectionName)
+    val listaCalIds: MutableList<String> = mutableListOf()
+
+    fun actualizarCalificaciones(StudentID: String){
+        val documentRef = mainCollectionRef.document(StudentID)
+        val subCollectionRef = documentRef.collection(subcollectionName)
+        subCollectionRef
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    calificaciones.clear()
+                    val subDocRef =subCollectionRef.document(document.id)
+                    subDocRef.get()
+                        .addOnSuccessListener { documentSnapshot ->
+                            println("idcal:" + document.id)
+                            listaCalIds.add(document.id)
+                            if (documentSnapshot.exists()) {
+
+                                val materia = documentSnapshot.getString("materia")
+                                val valor = documentSnapshot.getLong("valor") ?: 0
+                                val nuevaCalificacion = Calificacion(valor.toDouble(), materia!!)
+                                calificaciones.add(nuevaCalificacion)
+
+                            } else {
+                                println("No existe el documento")
+                            }
+                        }
+                }
+
+            }
+            .addOnFailureListener { exception ->
+                println("error")
+            }
+
+    }
     fun obtenerCalificaciones(): MutableList<Calificacion> {
         return calificaciones
     }
-    fun verCalificaciones() {
-        if(calificaciones.isNotEmpty()){
-            calificaciones.forEach{
-                println(it.valor)
-            }
-        }else{
-            println("Estudiante sin calificaciones")
-        }
-
-
-
-    }
-
     // Método para agregar una calificación
-    fun agregarCalificacion(valor: Double, materia: String) {
-        val nuevaCalificacion = Calificacion(valor, materia)
-        calificaciones.add(nuevaCalificacion)
+    fun agregarCalificacion(valor: Double, materia: String, StringID:String) {
+        val documentRef = mainCollectionRef.document(StringID)
+        val subcollectionRef = documentRef.collection(subcollectionName)
+        val nuevaCalificacion = Calificacion(
+            valor= valor,
+            materia= materia
+        )
+        subcollectionRef.add(nuevaCalificacion)
+            .addOnSuccessListener { documentReference ->
+                // La operación de almacenamiento fue exitosa
+                // Puedes obtener el ID del nuevo documento en la subcolección usando documentReference.id si es necesario
+            }
+            .addOnFailureListener { exception ->
+                // Maneja errores aquí
+            }
         println("Calificación agregada: Materia: $materia, Nota: $valor")
     }
-
+    fun obtenerIdLista(index:Int): String {
+        println(listaCalIds[index])
+        return listaCalIds[index]
+    }
     // Método para editar una calificación por materia
-    fun editarCalificacion(index: Int, materia: String, valor: Double ) {
-        val calificacion = calificaciones[index]
-        calificacion.valor = valor
-        calificacion.materia = materia
+    fun editarCalificacion(
+        materia: String,
+        valor: Double,
+        StringID: String,
+        CalID: String
+    ) {
+        val documentRef = mainCollectionRef.document(StringID)
+        val subcollectionRef = documentRef.collection(subcollectionName)
+        val subDocumentRef = subcollectionRef.document(CalID)
+
+        val datosAActualizar = hashMapOf(
+            "materia" to materia,
+            "valor" to valor // nuevoValor2, etc.
+            // Agrega otros campos y valores según sea necesario
+        )
+        subDocumentRef.update(datosAActualizar as Map<String, Any>)
+            .addOnSuccessListener {
+                // La operación de actualización fue exitosa
+            }
+            .addOnFailureListener { exception ->
+                // Maneja errores aquí
+            }
+
         println("Calificación editada: Materia: $materia, Nueva nota: $valor")
     }
 
     // Método para eliminar una calificación por materia
-    fun eliminarCalificacion(materia: String) {
-        val calificacion = calificaciones.find { it.materia == materia }
-        if (calificacion != null) {
-            calificaciones.remove(calificacion)
-            println("Calificación eliminada: Materia: $materia")
-        } else {
-            println("No se encontró una calificación para la materia $materia")
-        }
+    fun eliminarCalificacion(StringID: String,CalID: String) {
+        val documentRef = mainCollectionRef.document(StringID)
+        val subcollectionRef = documentRef.collection(subcollectionName)
+        val subDocumentRef = subcollectionRef.document(CalID)
+
+        subDocumentRef.delete()
+            .addOnSuccessListener {
+                // La operación de eliminación fue exitosa
+            }
+            .addOnFailureListener { exception ->
+                // Maneja errores aquí
+            }
     }
 
 }

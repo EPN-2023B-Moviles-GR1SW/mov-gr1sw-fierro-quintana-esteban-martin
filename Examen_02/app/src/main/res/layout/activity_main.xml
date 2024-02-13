@@ -25,11 +25,18 @@
         android:text="Crear nuevo"
         android:layout_marginBottom="10dp"
         />
+    <Button
+        android:id="@+id/btn_update_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Actualizar Lista"
+        android:layout_marginBottom="10dp"
+        />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#000"
+        android:background="#606060"
         android:layout_marginVertical="20dp"/>
 
 

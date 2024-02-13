@@ -8,15 +8,18 @@ import android.widget.BaseAdapter
 import android.widget.TextView
 import com.example.examen_02.R
 
-class EstListAdapter(private val context: Context, private val datos: MutableMap<Int, Estudiante>):
-    BaseAdapter(){
+class EstListAdapter(private val context: Context, private val datos: MutableMap<String, Estudiante>):
+    BaseAdapter() {
+
     override fun getCount(): Int {
         return datos.size
     }
 
     // Retorna el objeto en la posición especificada en tu conjunto de datos
     override fun getItem(position: Int): Estudiante? {
-        return datos[position]
+        // Convertir el mapa a una lista de claves y acceder al elemento por posición
+        val keys = datos.keys.toList()
+        return datos[keys[position]]
     }
 
     // Retorna el ID asociado con el objeto en la posición especificada
@@ -35,9 +38,11 @@ class EstListAdapter(private val context: Context, private val datos: MutableMap
         // Personaliza la vista con los datos del elemento en la posición actual
         val tv_nombre = vista?.findViewById<TextView>(R.id.tv_nombre)
         val tv_apellido = vista?.findViewById<TextView>(R.id.tv_apellido)
-        tv_nombre?.text = datos[position + 1]?.nombre
-        tv_apellido?.text = datos[position + 1]?.apellido
+
+        val estudiante = getItem(position)
+        tv_nombre?.text = estudiante?.nombre
+        tv_apellido?.text = estudiante?.apellido
+
         return vista!!
     }
-
 }

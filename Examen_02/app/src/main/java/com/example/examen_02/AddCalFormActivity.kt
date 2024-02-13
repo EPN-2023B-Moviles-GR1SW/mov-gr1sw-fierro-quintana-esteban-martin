@@ -26,7 +26,7 @@ class AddCalFormActivity : AppCompatActivity() {
         inputMateria = findViewById(R.id.input_materia)
     }
     fun logicaCrear(){
-        val id: Int = intent.extras?.getInt("id")!!
+        val id:String = intent.extras?.getString("StringId")!!
 
         val lista = EstHandlerList.obtenerLista()
 
@@ -40,7 +40,7 @@ class AddCalFormActivity : AppCompatActivity() {
             numero= inputNota.toDoubleOrNull()!!
 
             if (numero != null) {
-                lista[id]?.agregarCalificacion(numero, materia)
+                lista[id]?.agregarCalificacion(numero, materia, id)
                 Toast.makeText(this," Nota Creada", Toast.LENGTH_SHORT).show()
                 val intend = Intent(this, MainActivity::class.java)
                 startActivity(intend)
