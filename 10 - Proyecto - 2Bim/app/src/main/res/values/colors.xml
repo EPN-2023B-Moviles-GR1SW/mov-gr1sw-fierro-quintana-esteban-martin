@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="pastelBlue">#a4c3e3</color>
+    <color name="pastelPink">#f3a6d8</color>
+    <color name="pastelGreen">#b8e994</color>
+    <color name="pastelPurple">#d4a5a5</color>
+    <color name="pastelYellow">#f9dcc4</color>
+    <color name="pastelMint">#a1e5ab</color>
+    <color name="pastelPeach">#fad02e</color>
+    <color name="pastelLavender">#c8a2c8</color>
+    <color name="pastelCoral">#f88379</color>
+    <color name="pastelTurquoise">#74b9ff</color>
+
+    <color name="items">#4C54E6</color>
+</resources>

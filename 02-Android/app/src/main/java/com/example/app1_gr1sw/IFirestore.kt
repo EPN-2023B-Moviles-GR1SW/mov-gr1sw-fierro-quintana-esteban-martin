@@ -62,7 +62,6 @@ class IFirestore : AppCompatActivity() {
                                 ArrayList<String>?,
                     )
                 )
-                adaptador.notifyDataSetChanged()
             }
             .addOnFailureListener {
 

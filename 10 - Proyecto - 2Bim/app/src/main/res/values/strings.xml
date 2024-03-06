@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Prime Video</string>
+    <string name="title_activity_busqueda">BusquedaActivity</string>
+    <string name="title_activity_descargas">DescargasActivity</string>
+    <string name="title_activity_usuario">UsuarioActivity</string>
+    <string name="title_activity_perfil_usuario">perfil_usuario</string>
+</resources>
